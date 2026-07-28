@@ -10,7 +10,8 @@
 var NOTIFY_EMAIL = 'design@saumstudio.com';
 
 // Column order written to the sheet. The first row is created automatically.
-var HEADERS = ['Timestamp', 'Name', 'Phone', 'Home type', 'Locality', 'Source', 'Page'];
+var HEADERS = ['Timestamp', 'Name', 'Phone', 'Home type', 'Locality', 'Source',
+               'Placement (utm_source)', 'Ad set (utm_medium)', 'Campaign (utm_campaign)', 'Ad (utm_content)', 'Page'];
 
 function doPost(e) {
   try {
@@ -31,6 +32,10 @@ function doPost(e) {
       data.bhk || '',
       data.area || '',
       data.source || '',
+      data.utm_source || '',      // placement
+      data.utm_medium || '',      // ad set name
+      data.utm_campaign || '',    // campaign name
+      data.utm_content || '',     // ad name
       data.page || ''
     ]);
 
@@ -45,7 +50,11 @@ function doPost(e) {
           'Phone: ' + (data.phone || '-') + '\n' +
           'Home type: ' + (data.bhk || '-') + '\n' +
           'Locality: ' + (data.area || '-') + '\n' +
-          'Source: ' + (data.source || '-') + '\n' +
+          'Source: ' + (data.source || '-') + '\n\n' +
+          'Campaign: ' + (data.utm_campaign || '-') + '\n' +
+          'Ad set: ' + (data.utm_medium || '-') + '\n' +
+          'Ad: ' + (data.utm_content || '-') + '\n' +
+          'Placement: ' + (data.utm_source || '-') + '\n\n' +
           'Page: ' + (data.page || '-') + '\n' +
           'Time: ' + now
       });

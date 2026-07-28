@@ -532,12 +532,18 @@
       // Spam honeypot: real users never see/fill this field
       if (f.company && f.company.value) { return false; }
 
+      // Read Facebook ad tracking params from the URL (utm_source={{placement}} etc.)
+      var q = new URLSearchParams(window.location.search);
       var lead = {
         name: f.name.value,
         phone: f.phone.value,
         bhk: f.bhk.value,
         area: f.area.value || '-',
         source: 'Landing page (20% OFF offer)',
+        utm_source: q.get('utm_source') || '',     // placement (e.g. Facebook Feed)
+        utm_medium: q.get('utm_medium') || '',      // adset name
+        utm_campaign: q.get('utm_campaign') || '',  // campaign name
+        utm_content: q.get('utm_content') || '',    // ad name
         page: window.location.href
       };
 
