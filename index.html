@@ -544,7 +544,10 @@
         utm_medium: q.get('utm_medium') || '',      // adset name
         utm_campaign: q.get('utm_campaign') || '',  // campaign name
         utm_content: q.get('utm_content') || '',    // ad name
-        page: window.location.href
+        // Clean page URL only — no query string. The tracking data already
+        // lives in the Campaign/Ad Set/Ad Name columns, so we don't dump the
+        // long fbclid/utm_* link into the sheet.
+        page: window.location.origin + window.location.pathname
       };
 
       // 1) Save the lead to the Google Sheet (survives the page redirect via sendBeacon).
